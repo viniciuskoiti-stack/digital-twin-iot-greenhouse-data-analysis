@@ -174,25 +174,30 @@ Interface visual implementada utilizando Google AI Studio.
 
 # 🧱 8. Estrutura do Repositório
 
+Organização das pastas conforme o padrão profissional exigido:
+
+```bash
 /
-├── data/
-│   ├── raw/
-│   └── processed/
+├── data/               # Conjuntos de dados
+│   ├── raw/            # Arquivos originais (imutáveis)
+│   └── processed/      # Arquivos tratados após ETL
 │
-├── docs/
+├── docs/               # Documentação técnica e Apêndice de IA
 │
-├── images/
+├── images/             # Identidade visual, screenshots do dashboard e diagramas
 │
-├── notebooks/
-│   ├── EDA_DIGITALTWINS_V2.ipynb
-│   └── n1_individual/
+├── notebooks/          # Notebooks Jupyter (EDA e Modelagem)
+│   ├── M2_EDA.ipynb    # Análise Exploratória
+│   ├── M3_ML.ipynb     # Modelagem inicial
+│   ├── M4_Otimizacao.ipynb # Refinamento e Cross-Validation
+│   └── n1_individual/  # Testes estatísticos de cada integrante
 │
-├── scripts/
-│   └── logica_decisao_ia.py
+├── scripts/            # Código-fonte principal
+│   ├── etl.py          # Script de tratamento
+│   └── train_model.py  # Script de treino final
 │
-├── requirements.txt
-│
-└── README.md
+├── requirements.txt    # Lista de bibliotecas (pandas, sklearn, etc.)
+└── README.md           # Documentação principal
 
 ---
 
