@@ -1,164 +1,293 @@
-# Projeto: Analytics e Monitoramento para Estufas IoT
+# 🔧 Projeto: Gêmeo Digital (Digital Twin) e Analytics para Agricultura de Precisão
 
-### 1. Identificação do Grupo
-* **Instituição:** Centro Educacional da Fundação Salvador Arena
-* **Curso:** Engenharia de Controle e Automação
-* **Grupo:** B
-* **Integrantes:**
-  * Jhuan Henrique Luz Dias - RA: 062210023
-  * Lucas Veiga Bezerra - RA: 062210006
-  * Yasmin Souza Correia - RA: 062210008
-  * Tifany Mariane Ferreira - RA: 062210019
-  * Vinicius Koiti Vila Nova Tsuchiya - RA: 062210022
+> Projeto desenvolvido para a disciplina de Ciência de Dados, focado na aplicação da Indústria 4.0 na agricultura. O objetivo é utilizar telemetria IoT contínua para mapear processos biológicos em ambientes controlados e, por meio de Machine Learning, realizar a predição da biomassa vegetal para controle preditivo em malha fechada.
+
+![Status do Projeto](https://img.shields.io/badge/Status-Conclu%C3%ADdo%20/%20M4-brightgreen)
+![Python](https://img.shields.io/badge/Python-3.9+-blue?logo=python)
+![Scikit-Learn](https://img.shields.io/badge/Scikit--Learn-Modelagem-orange?logo=scikit-learn)
+![Google AI Studio](https://img.shields.io/badge/Google%20AI%20Studio-Dashboard-purple)
 
 ---
 
-### 2. Área Problema Selecionada
-* [X] Gêmeos Digitais (Digital Twins) e Analytics em Tempo Real
----
+# 👥 1. Identificação do Grupo
 
-### 3. Diagnóstico e Definição do Problema
-* **Contexto:** Aplicação da Indústria 4.0 na agricultura de precisão, utilizando telemetria contínua para mapear processos biológicos em ambientes protegidos.
-* **Problema:** A alta densidade de dados provenientes da instrumentação IoT costuma carregar ruídos de leitura, dificultando a extração de variáveis confiáveis para o controle preditivo.
-* **Impacto:** Uma infraestrutura de dados tratada viabiliza a implementação de malhas orientadas a dados, maximizando a produtividade agrícola apenas com informações empíricas.
+- Instituição: Centro Educacional da Fundação Salvador Arena
+- Curso: Engenharia de Controle e Automação
+- Disciplina: Ciência de Dados
+- Grupo: B
 
----
+## Integrantes
 
-### 4. Arquitetura de Dados (Fonte e Dataset)
-* **Origem dos Dados:** Advanced IoT Dataset (Tikrit University). Dados reais de laboratório, garantindo rigor e ausência de informações sintéticas.
-* **Características:** Conjunto com 30.000 amostras instrumentais (ACHP, ALAP, AWWGV, etc.).
-* **Volume:** Banco de dados de alta dimensionalidade para fundamentação estatística sólida.
-
----
-
-### 5. Plano de Tratamento de Dados (ETL)
-
-1. **Extração:** Carga das amostras brutas da malha de telemetria.  
-2. **Transformação:**
-   - Exclusão de perdas de pacote e falhas de rede (valores nulos).
-   - Aplicação do filtro IQR no sinal da célula de carga (AWWGV) para supressão de *outliers* elétricos ou mecânicos.  
-3. **Carga:** Consolidação dos *dataframes* otimizados no diretório `/data/processed`.
+- Jhuan Henrique Luz Dias — RA: 062210023
+- Lucas Veiga Bezerra — RA: 062210006
+- Yasmin Souza Correia — RA: 062210008
+- Tifany Mariane Ferreira — RA: 062210019
+- Vinicius Koiti Vila Nova Tsuchiya — RA: 062210022
 
 ---
 
-### 6. Estrutura do Repositório
+# 🎯 2. Área-Problema Selecionada
 
-* `/docs` → documentação técnica do sistema  
-* `/data/raw` → base de dados original (`Advanced_IoT_Dataset.csv`)  
-* `/data/processed` → dados tratados após o pipeline de ETL  
-* `/scripts` → notebook Python contendo os algoritmos de análise  
-* `requirements.txt` → relação de dependências do ambiente  
+O grupo selecionou a área de Gêmeos Digitais (Digital Twins) e Analytics em Tempo Real.
+
+## ✅ Recorte do Projeto
+
+Predição em tempo real da biomassa úmida (peso) de plantas em estufas inteligentes, utilizando variáveis morfológicas monitoradas por telemetria IoT para fundamentar sistemas de controle orientados a dados (data-driven control).
+
+## 📌 Justificativa e Hipótese
+
+Sensores físicos para medição direta de biomassa são invasivos, caros e de difícil calibração em larga escala. A hipótese central do projeto é que variáveis indiretas, como Área Foliar e Nível de Clorofila, possuem forte correlação com a biomassa vegetal, permitindo que algoritmos de Machine Learning atuem como sensores virtuais de alta precisão.
 
 ---
 
-### 7. Instruções para Execução
+# 🧩 3. Diagnóstico e Definição do Problema
 
-1. Clone o repositório.  
-2. Instale as dependências executando:
+- Problema: A elevada quantidade de dados provenientes da instrumentação IoT agrícola carrega ruídos de leitura, perdas de pacote e outliers, dificultando a extração de variáveis fisiológicas confiáveis para controle preditivo.
 
-```bash
+- Impacto: A utilização de um pipeline robusto de tratamento de dados aliado a modelos preditivos permite maior eficiência no acionamento de atuadores, redução de desperdícios hídricos e energéticos e aumento da produtividade agrícola.
+
+---
+
+# 🗂️ 4. Arquitetura de Dados (Fonte e Dataset)
+
+- Origem: Advanced IoT Dataset — Tikrit University
+- Características: Dataset real de laboratório contendo aproximadamente 30.000 amostras telemétricas.
+- Variáveis Principais:
+  - Average leaf area of the plant (ALAP)
+  - Average of chlorophyll in the plant (ACHP)
+  - Plant height rate (PHR)
+
+- Variável Alvo:
+  - Average wet weight of the growth vegetative (AWWGV)
+
+---
+
+# 🔄 5. Plano de Tratamento de Dados (ETL)
+
+O pipeline de dados segue as seguintes etapas:
+
+## 1. Extração
+
+Leitura da base de dados bruta localizada na pasta /data/raw.
+
+## 2. Transformação
+
+- Remoção de valores nulos
+- Tratamento de falhas de leitura
+- Aplicação do método estatístico IQR (Interquartile Range)
+- Supressão de outliers elétricos e mecânicos
+
+## 3. Carga
+
+Armazenamento dos dados tratados em /data/processed para utilização pelo modelo preditivo.
+
+---
+
+# 📈 6. Desenvolvimento e Otimização (M2, M3 e M4)
+
+## 🔍 M2 — Análise Exploratória (EDA)
+
+A análise exploratória permitiu identificar:
+
+- Correlação direta entre Área Foliar (ALAP) e Biomassa Vegetal (AWWGV)
+- Relação entre Clorofila e Taxa de Crescimento
+- Estabilidade superior em sistemas Smart IoT
+- Viabilidade do modelo preditivo baseado em sensores indiretos
+
+---
+
+## 🤖 M3 — Modelagem de IA
+
+Foi implementada uma arquitetura híbrida composta por:
+
+### Camada de Predição Matemática
+
+Modelo RandomForestRegressor treinado com os dados pós-ETL.
+
+### Camada de Decisão Inteligente
+
+Interface desenvolvida no Google AI Studio responsável por:
+
+- Receber as variáveis telemétricas
+- Interpretar o estado fisiológico da planta
+- Gerar diagnósticos e comandos atuados em formato JSON
+
+---
+
+## ⚙️ M4 — Refinamento e Otimização Profissional
+
+### Ajuste de Hiperparâmetros
+
+Utilização do GridSearchCV para busca das melhores configurações matemáticas do modelo:
+
+- max_depth = 10
+- min_samples_split = 10
+- n_estimators = 150
+
+### Cross-Validation
+
+Aplicação de validação cruzada (cv=5) para garantir robustez estatística e evitar overfitting.
+
+### Engenharia de Atributos (Feature Importance)
+
+As variáveis mais relevantes identificadas foram:
+
+| Variável | Importância |
+|---|---|
+| ACHP | 56.2% |
+| PHR | 35.4% |
+| ALAP | 5.4% |
+| ANPL | 2.8% |
+
+---
+
+## 📊 Métricas Finais do Modelo Otimizado
+
+| Métrica | Resultado |
+|---|---|
+| MAE | 0.0080 |
+| RMSE | 0.0099 |
+| R² | 99.84% |
+
+Os resultados demonstram elevada capacidade preditiva e aderência industrial do modelo.
+
+---
+
+# 🖥️ 7. Dashboard de Monitoramento
+
+Interface visual implementada utilizando Google AI Studio.
+
+## Funcionalidades
+
+- Entrada manual de variáveis telemétricas
+- Predição da biomassa vegetal
+- Diagnóstico fisiológico
+- Sugestão automática de atuação
+- Exibição de métricas do modelo
+- Respostas estruturadas em JSON
+
+## Link do Protótipo
+
+[COLE_AQUI_O_LINK_DO_AI_STUDIO]
+
+---
+
+# 🧱 8. Estrutura do Repositório
+
+/
+├── data/
+│   ├── raw/
+│   └── processed/
+│
+├── docs/
+│
+├── images/
+│
+├── notebooks/
+│   ├── EDA_DIGITALTWINS_V2.ipynb
+│   └── n1_individual/
+│
+├── scripts/
+│   └── logica_decisao_ia.py
+│
+├── requirements.txt
+│
+└── README.md
+
+---
+
+# 🚀 9. Instruções para Execução
+
+## 1. Clonar o Repositório
+
+git clone [COLE_AQUI_O_LINK_DO_REPOSITORIO]
+
+## 2. Instalar Dependências
+
 pip install -r requirements.txt
-```
 
-3. Inicialize o ambiente e execute o notebook presente no diretório `/scripts`.
+## 3. Executar o Notebook Principal
 
----
+Abrir e executar:
 
-### 8. Etapa 02 (M2) - Análise Exploratória de Dados (EDA)
+/notebooks/EDA_DIGITALTWINS_V2.ipynb
 
-**Link do Notebook Executável:**  
-https://colab.research.google.com/drive/1ColVSLeGc4DaJKByNFKhonDa7GhRRF9K?usp=sharing
+O notebook executa automaticamente:
 
----
-
-**Contexto da Aplicação:**  
-A análise se limitou ao processamento da telemetria de campo. O objetivo principal foi mapear as relações físicas entre variáveis do processo (como morfologia vs. biomassa) para pavimentar a construção de modelos preditivos, sem o artifício de geração matemática de dados.
-
----
-
-**Pipeline de Limpeza:**  
-O uso do corte interquartil (IQR) na variável de peso blindou a estatística contra perturbações no sinal do sensor, assegurando a confiabilidade das conclusões operacionais.
+- ETL
+- Limpeza estatística
+- EDA
+- Treinamento do modelo
+- GridSearchCV
+- Cross-Validation
+- Métricas finais
+- Feature Importance
 
 ---
 
-**Hipóteses Validadas:**
+# 🧪 10. N1 Individual — Aprofundamento Estatístico
 
-- A Área Foliar (ALAP) mantém proporcionalidade física com a Biomassa Úmida (AWWGV).  
-- As estufas com instrumentação de ponta (Smart IoT) apresentam estabilidade superior às plantas tradicionais.  
-
----
-
-**Conclusão Técnica:**  
-Os resultados obtidos permitem futura aplicação em estratégias de controle e predição baseadas em modelos orientados a dados (*data-driven control*).
-
----
-
-### 9. Apêndice de Uso Ético de Ferramentas
-
-A assistência da ferramenta (Google Gemini) limitou-se à estruturação técnica do código e formatação de plots estatísticos.
+| Integrante | Variável | Teste Estatístico | Link |
+|---|---|---|---|
+| Jhuan Henrique | [PREENCHER] | [PREENCHER] | notebooks/n1_individual/arq1.ipynb |
+| Lucas Veiga | [PREENCHER] | [PREENCHER] | notebooks/n1_individual/arq2.ipynb |
+| Yasmin Souza | [PREENCHER] | [PREENCHER] | notebooks/n1_individual/arq3.ipynb |
+| Tifany Mariane | [PREENCHER] | [PREENCHER] | notebooks/n1_individual/arq4.ipynb |
+| Vinicius Koiti | [PREENCHER] | [PREENCHER] | notebooks/n1_individual/arq5.ipynb |
 
 ---
 
-**A. Exemplos de Uso:**
+# 🎥 11. Demonstração do Projeto
 
-- Refatoração de scripts em Python (Pandas).  
-- Sugestões semânticas para exibição de matrizes térmicas densas.  
+## Pitch e Demonstração (2–3 min)
 
----
+[COLE_AQUI_O_LINK_DO_VIDEO]
 
-**B. Rigor e Decisão do Grupo:**
+O vídeo apresenta:
 
-O grupo descartou orientações iniciais da ferramenta para gerar dados de atuação controlada (sinal PWM simulado). A decisão unânime foi restringir a análise estritamente aos sinais instrumentais disponíveis no *datacard* oficial.
-
----
-
-**C. Validação da Engenharia:**
-
-- Verificação lógica da exclusão de dados pelo método IQR.
-
----
-
-### 10. Etapa 03 (M3) - Modelo Preditivo e Arquitetura de Decisão IA
-
-**Link do Protótipo (Google AI Studio):**  
-https://ai.studio/apps/d653c259-1129-46ca-b39a-37cc9c24b35f?fullscreenApplet=true
-
-**Código-Fonte:**  
-O script da lógica LLM (`logica_decisao_ia.py`) e o notebook com o treinamento matemático estão disponíveis na pasta `/scripts`.
+- Estrutura do projeto
+- Pipeline ETL
+- Modelo Random Forest
+- Métricas finais
+- Otimização M4
+- Interface no AI Studio
+- Funcionamento do Gêmeo Digital
 
 ---
 
-#### 1. Arquitetura da Solução
+# 🤖 12. Apêndice de IA
 
-A solução foi estruturada em duas camadas para garantir rigor técnico e aplicabilidade industrial:
+## Ferramentas Utilizadas
 
-- **Camada de Predição (Machine Learning):**  
-Treinamento de um modelo *Random Forest Regressor* com os dados reais pós-ETL da Etapa M2 para calcular matematicamente a biomassa (AWWGV).
-- **Camada de Decisão (IA Generativa):**  
-Implementada no Google AI Studio, atua como o cérebro interpretativo. Recebe a predição e as leituras dos sensores para gerar ações de controle estruturadas em formato JSON.
+- Google Gemini
+- Google AI Studio
+
+## Aplicações da IA
+
+As ferramentas de IA auxiliaram:
+
+- Estruturação do código Python
+- Organização do pipeline ETL
+- Revisão da sintaxe Scikit-Learn
+- Criação de prompts JSON
+- Organização do GitHub
+- Estruturação do Dashboard
+
+## Processo de Validação
+
+Todas as decisões técnicas foram verificadas manualmente pelo grupo.
+
+Foram auditados:
+
+- Método IQR
+- Cross-Validation
+- GridSearchCV
+- Métricas industriais
+- Importância das variáveis
+- Resultados do modelo
+
+Nenhuma decisão técnica foi aplicada automaticamente sem validação humana.
 
 ---
 
-#### 2. Métricas do Modelo
-
-A validação no conjunto de teste comprovou a viabilidade da inferência indireta da biomassa vegetal, reduzindo a necessidade de sensores físicos invasivos:
-
-- **MAE (Erro Médio Absoluto):** 0.0083  
-- **RMSE (Raiz do Erro Quadrático Médio):** 0.0103  
-- **R² (Coeficiente de Determinação):** 99.82%
-
----
-
-#### 3. Resultado Funcional
-
-O protótipo recebe os dados de telemetria (ALAP, ACHP, PHR) e retorna ESTRITAMENTE um objeto JSON contendo:
-
-1. Predição da biomassa vegetal (AWWGV)
-2. Diagnóstico técnico do estado da planta
-3. Ação recomendada para atuadores (ex: ajuste de setpoints de irrigação/iluminação)
-
----
-
-#### Conclusão
-
-A Etapa M3 implementa um pipeline completo de ponta a ponta (dados → predição → decisão), alinhado com as arquiteturas reais de Indústria 4.0, sistemas ciberfísicos e Gêmeos Digitais para o agronegócio.
+© 2026 — Projeto de Ciência de Dados — Faculdade Engenheiro Salvador Arena
