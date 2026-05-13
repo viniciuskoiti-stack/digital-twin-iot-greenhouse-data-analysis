@@ -198,6 +198,7 @@ Organização das pastas conforme o padrão profissional exigido:
 │
 ├── requirements.txt    # Lista de bibliotecas (pandas, sklearn, etc.)
 └── README.md           # Documentação principal
+```
 
 ---
 
