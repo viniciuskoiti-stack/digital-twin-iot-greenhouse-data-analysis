@@ -168,7 +168,7 @@ Interface visual implementada utilizando Google AI Studio.
 
 ## Link do Protótipo
 
-[COLE_AQUI_O_LINK_DO_AI_STUDIO]
+https://ai.studio/apps/d653c259-1129-46ca-b39a-37cc9c24b35f?fullscreenApplet=true
 
 ---
 
@@ -179,55 +179,69 @@ Organização das pastas conforme o padrão profissional exigido:
 ```bash
 /
 ├── data/               # Conjuntos de dados
-│   ├── raw/            # Arquivos originais (imutáveis)
-│   └── processed/      # Arquivos tratados após ETL
+│   ├── raw/            # Arquivo CSV original (imutável)
+│   └── processed/      # Arquivo CSV tratado após filtro IQR (ETL)
 │
 ├── docs/               # Documentação técnica e Apêndice de IA
 │
-├── images/             # Identidade visual, screenshots do dashboard e diagramas
+├── images/             # Screenshots do dashboard (Agritwin) e diagramas (Matriz de Correlação)
 │
-├── notebooks/          # Notebooks Jupyter (EDA e Modelagem)
-│   ├── M2_EDA.ipynb    # Análise Exploratória
-│   ├── M3_ML.ipynb     # Modelagem inicial
-│   ├── M4_Otimizacao.ipynb # Refinamento e Cross-Validation
-│   └── n1_individual/  # Testes estatísticos de cada integrante
+├── notebooks/          # Notebooks Jupyter (Ambiente de Experimentação)
+│   ├── M2_EDA.ipynb    # Etapa 2: Análise Exploratória e ETL
+│   ├── M3_ML.ipynb     # Etapa 3: Modelagem Inicial de Machine Learning
+│   ├── M4_Otimizacao.ipynb # Etapa 4: Refinamento, GridSearch e Cross-Validation
+│   └── n1_individual/  # Diretório para os testes estatísticos de cada integrante
 │
-├── scripts/            # Código-fonte principal
-│   ├── etl.py          # Script de tratamento
-│   └── train_model.py  # Script de treino final
+├── scripts/            # Código-fonte principal de produção (Scripts .py)
+│   ├── etl.py          # Script isolado para processamento de dados
+│   ├── train_model.py  # Script isolado para treino do modelo final otimizado
+│   └── logica_decisao_ia.py  # Integração do Gêmeo Digital com IA (Google AI Studio)
 │
-├── requirements.txt    # Lista de bibliotecas (pandas, sklearn, etc.)
-└── README.md           # Documentação principal
+├── requirements.txt    # Lista de bibliotecas essenciais para reprodução
+└── README.md           # Documentação principal e guia de correção
 ```
 
 ---
 
 # 🚀 9. Instruções para Execução
 
-## 1. Clonar o Repositório
+Para reproduzir o ambiente e executar o projeto, siga os passos abaixo:
 
-git clone [COLE_AQUI_O_LINK_DO_REPOSITORIO]
+## 1. Clonar o Repositório e Acessar o Diretório
+Abra o seu terminal e execute:
+```bash
+git clone https://github.com/viniciuskoiti-stack/Digital-Twin-IoT-Greenhouse-Data-Analysis.git
+```
 
 ## 2. Instalar Dependências
-
+Certifique-se de ter o Python instalado (3.9+). Execute:
+```bash
 pip install -r requirements.txt
+```
 
-## 3. Executar o Notebook Principal
+## 3. Execução via Notebooks (Experimentação)
+Abra o Jupyter ou Colab e execute os arquivos na ordem lógica:
+1. notebooks/M2_EDA.ipynb
+2. notebooks/M3_ML.ipynb
+3. notebooks/M4_Otimizacao.ipynb
 
-Abrir e executar:
+## 4. Execução via Scripts (Produção)
+Execute via terminal na ordem abaixo:
 
-/notebooks/EDA_DIGITALTWINS_V2.ipynb
+Passo A: Processamento de Dados (ETL)
+```bash
+python scripts/etl.py
+```
 
-O notebook executa automaticamente:
+Passo B: Treinamento e Otimização do Modelo
+```bash
+python scripts/train_model.py
+```
 
-- ETL
-- Limpeza estatística
-- EDA
-- Treinamento do modelo
-- GridSearchCV
-- Cross-Validation
-- Métricas finais
-- Feature Importance
+Passo C: Gêmeo Digital (Integração IA)
+```bash
+python scripts/logica_decisao_ia.py
+```
 
 ---
 
