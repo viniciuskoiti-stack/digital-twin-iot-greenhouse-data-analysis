@@ -250,7 +250,7 @@ python scripts/logica_decisao_ia.py
 | Integrante | Variável | Teste Estatístico | Link |
 |---|---|---|---|
 | Jhuan Henrique | [PREENCHER] | [PREENCHER] | notebooks/n1_individual/arq1.ipynb |
-| Lucas Veiga | [PREENCHER] | [PREENCHER] | notebooks/n1_individual/arq2.ipynb |
+| Lucas Veiga | [ACHP, PHR e ALAP] | [Stress Test] | notebooks/n1_individual/N1_Lucas_Veiga.ipynb |
 | Yasmin Souza | [PREENCHER] | [PREENCHER] | notebooks/n1_individual/arq3.ipynb |
 | Tifany Mariane | [PREENCHER] | [PREENCHER] | notebooks/n1_individual/arq4.ipynb |
 | Vinicius Koiti | [PREENCHER] | [PREENCHER] | notebooks/n1_individual/arq5.ipynb |
